@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Login/Logout</title>
+    <script>
+        // JavaScript to capture the location and submit the form
+        function submitForm(action) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    // Set latitude and longitude values in the form
+                    document.getElementById("latitude").value = position.coords.latitude;
+                    document.getElementById("longitude").value = position.coords.longitude;
+                    document.getElementById("action").value = action;
+
+                    // Submit the form
+                    document.getElementById("loginForm").submit();
+                }, function(error) {
+                    alert("Error in retrieving location: " + error.message);
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Login/Logout System</h2>
+    <form id="loginForm" action="https://docs.google.com/forms/d/e/1FAIpQLSfqWKy_Ei0bdLbTXmmUgs2fiY2MvXDgRdcUY1g3XJvdf3LLIg/viewform?usp=sf_link">
+        <!-- Hidden fields to pass data -->
+        <input type="hidden" name="entry.13345612" value="John Doe" />
+        <input type="hidden" name="entry.2112004255" id="action" value="" />
+        <input type="hidden" name="entry.1493487833" id="latitude" value="" />
+        <input type="hidden" name="entry.1349164592" id="longitude" value="" />
+        
+        <!-- Buttons to trigger login or logout -->
+        <button type="button" onclick="submitForm('Login')">Login</button>
+        <button type="button" onclick="submitForm('Logout')">Logout</button>
+    </form>
+</body>
+</html>
